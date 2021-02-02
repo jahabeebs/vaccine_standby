@@ -13,11 +13,11 @@ public class Patient {
     private Integer id;
 
     private String firstName;
-    private String healthcareWorkerStatus;
+    private boolean healthcareWorkerStatus;
     private String lastName;
     private String phoneNumber;
-    private String race;
-    private double distanceFromPharmacy;
+    private boolean minorityStatus;
+    private double milesFromPharmacy;
     private int age;
     private double priorityScore;
 
@@ -25,15 +25,36 @@ public class Patient {
 
     }
 
-    public Patient(String firstName, String healthcareWorkerStatus, String lastName, String phoneNumber, String race, double distanceFromPharmacy, int age, double priorityScore) {
+    public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String phoneNumber, boolean minorityStatus, double distanceFromPharmacy, int age, double priorityScore) {
         this.firstName = firstName;
         this.healthcareWorkerStatus = healthcareWorkerStatus;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.race = race;
-        this.distanceFromPharmacy = distanceFromPharmacy;
+        this.minorityStatus = minorityStatus;
+        this.milesFromPharmacy = distanceFromPharmacy;
         this.age = age;
         this.priorityScore = priorityScore;
+    }
+
+    public void calculatePatientPriorityScore(Patient patient) {
+        double total = 0;
+        if (patient.getMilesFromPharmacy() < 1) {
+            total += 8;
+        }
+        if (patient.getMilesFromPharmacy() > 1 && patient.getMilesFromPharmacy() < 5) {
+            total += 2;
+        }
+        if (patient.getMilesFromPharmacy() > 5) {
+            total -= 4;
+        }
+        if (patient.getHealthcareWorkerStatus()) {
+            total += 2;
+        }
+        if (patient.getMinorityStatus()) {
+            total += 2;
+        }
+        total += (patient.getAge() / 20.0);
+        patient.setPriorityScore(total);
     }
 
     public Integer getId() {
@@ -52,11 +73,11 @@ public class Patient {
         this.firstName = firstName;
     }
 
-    public String getHealthcareWorkerStatus() {
+    public boolean getHealthcareWorkerStatus() {
         return healthcareWorkerStatus;
     }
 
-    public void setHealthcareWorkerStatus(String healthcareWorkerStatus) {
+    public void setHealthcareWorkerStatus(boolean healthcareWorkerStatus) {
         this.healthcareWorkerStatus = healthcareWorkerStatus;
     }
 
@@ -76,20 +97,20 @@ public class Patient {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getRace() {
-        return race;
+    public boolean getMinorityStatus() {
+        return minorityStatus;
     }
 
-    public void setRace(String race) {
-        this.race = race;
+    public void setMinorityStatus(boolean minorityStatus) {
+        this.minorityStatus = minorityStatus;
     }
 
-    public double getDistanceFromPharmacy() {
-        return distanceFromPharmacy;
+    public double getMilesFromPharmacy() {
+        return milesFromPharmacy;
     }
 
-    public void setDistanceFromPharmacy(double distanceFromPharmacy) {
-        this.distanceFromPharmacy = distanceFromPharmacy;
+    public void setMilesFromPharmacy(double distanceFromPharmacy) {
+        this.milesFromPharmacy = distanceFromPharmacy;
     }
 
     public int getAge() {

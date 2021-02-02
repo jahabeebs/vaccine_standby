@@ -5,8 +5,6 @@ import org.jacob.vaccine_standby.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class PatientController {
 
@@ -15,16 +13,16 @@ public class PatientController {
 
     @PostMapping("/add")
     public String addPatient(@RequestParam String firstName, @RequestParam String lastName,
-                             @RequestParam String healthcareWorkerStatus, @RequestParam String phoneNumber,
-                             @RequestParam String race, @RequestParam double distanceFromPharmacy,
+                             @RequestParam boolean healthcareWorkerStatus, @RequestParam String phoneNumber,
+                             @RequestParam boolean minorityStatus, @RequestParam double distanceFromPharmacy,
                              @RequestParam int age, @RequestParam double priorityScore) {
-        Patient patient = new Patient(firstName, healthcareWorkerStatus, lastName, phoneNumber, race, distanceFromPharmacy, age, priorityScore);
+        Patient patient = new Patient(firstName, healthcareWorkerStatus, lastName, phoneNumber, minorityStatus, distanceFromPharmacy, age, priorityScore);
         patient.setFirstName(firstName);
         patient.setLastName(lastName);
         patient.setHealthcareWorkerStatus(healthcareWorkerStatus);
         patient.setPhoneNumber(phoneNumber);
-        patient.setRace(race);
-        patient.setDistanceFromPharmacy(distanceFromPharmacy);
+        patient.setMinorityStatus(minorityStatus);
+        patient.setMilesFromPharmacy(distanceFromPharmacy);
         patient.setAge(age);
         patient.setPriorityScore(priorityScore);
         patientRepository.save(patient);
@@ -42,8 +40,7 @@ public class PatientController {
 //    }
 
     @GetMapping("/list")
-    public Patient findTopByOrderByPriorityScoreDesc() {
-        return patientRepository.findTopByOrderByPriorityScoreDesc();
+    public Patient findTopByOrderByPriorityScoreDesc() { return patientRepository.findTopByOrderByPriorityScoreDesc();
     }
 
     @DeleteMapping("/delete/{id}")
