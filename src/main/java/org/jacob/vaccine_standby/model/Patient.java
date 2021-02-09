@@ -36,16 +36,16 @@ public class Patient {
         this.priorityScore = priorityScore;
     }
 
-    public void calculatePatientPriorityScore(Patient patient) {
+    public void assignPatientPriorityScore(Patient patient) {
         double total = 0;
         if (patient.getMilesFromPharmacy() < 1) {
-            total += 8;
+            total += 6;
         }
         if (patient.getMilesFromPharmacy() > 1 && patient.getMilesFromPharmacy() < 5) {
-            total += 2;
+            total += 3;
         }
         if (patient.getMilesFromPharmacy() > 5) {
-            total -= 4;
+            total -= 3;
         }
         if (patient.getHealthcareWorkerStatus()) {
             total += 2;

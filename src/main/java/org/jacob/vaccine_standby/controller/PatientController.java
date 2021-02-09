@@ -24,20 +24,25 @@ public class PatientController {
         patient.setMinorityStatus(minorityStatus);
         patient.setMilesFromPharmacy(distanceFromPharmacy);
         patient.setAge(age);
-        patient.setPriorityScore(priorityScore);
+        patient.assignPatientPriorityScore(patient);
         patientRepository.save(patient);
         return "Patient Registered Successfully";
     }
 
-    @GetMapping("/find/{id}")
-    public Patient findPatientById(@PathVariable Integer id) {
-        return patientRepository.findPatientById(id);
+    @GetMapping("/find/{lastName}")
+    public Patient findPatientById(@PathVariable String lastName) {
+        return patientRepository.findPatientByLastName(lastName);
     }
 
 //    @GetMapping("/list/{numberToList}")
-//    public List<Patient> findByIdNotNullOrderByPriorityScoreAsc(@PathVariable Integer numberToList) {
+//    public Patient findByIdNotNullOrderByPriorityScoreAsc(@PathVariable Integer numberToList) {
 //        return patientRepository.findByIdNotNullOrderByPriorityScoreAsc(numberToList);
 //    }
+
+    @GetMapping("/find/{lastName}{firstName}")
+    public Patient findPatientByLastNameAndFirstName(@PathVariable String lastName, @PathVariable String firstName) {
+        return patientRepository.findPatientByLastNameAndFirstName(lastName, firstName);
+    }
 
     @GetMapping("/list")
     public Patient findTopByOrderByPriorityScoreDesc() { return patientRepository.findTopByOrderByPriorityScoreDesc();
