@@ -11,24 +11,26 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String firstName;
-    private boolean healthcareWorkerStatus;
     private String lastName;
+    private boolean healthcareWorkerStatus;
+    private String occupation;
     private String phoneNumber;
     private boolean minorityStatus;
     private double milesFromPharmacy;
-    private int age;
+    private String age;
     private double priorityScore;
 
     public Patient() {
 
     }
 
-    public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String phoneNumber, boolean minorityStatus, double distanceFromPharmacy, int age, double priorityScore) {
+    public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String occupation, String phoneNumber,
+                   boolean minorityStatus, double distanceFromPharmacy, String age, double priorityScore) {
         this.firstName = firstName;
-        this.healthcareWorkerStatus = healthcareWorkerStatus;
         this.lastName = lastName;
+        this.occupation = occupation;
+        this.healthcareWorkerStatus = healthcareWorkerStatus;
         this.phoneNumber = phoneNumber;
         this.minorityStatus = minorityStatus;
         this.milesFromPharmacy = distanceFromPharmacy;
@@ -53,7 +55,7 @@ public class Patient {
         if (patient.getMinorityStatus()) {
             total += 2;
         }
-        total += (patient.getAge() / 20.0);
+        total += (Double.valueOf(patient.getAge()) / 20.0);
         patient.setPriorityScore(total);
     }
 
@@ -71,6 +73,14 @@ public class Patient {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
     }
 
     public boolean getHealthcareWorkerStatus() {
@@ -105,19 +115,17 @@ public class Patient {
         this.minorityStatus = minorityStatus;
     }
 
-    public double getMilesFromPharmacy() {
-        return milesFromPharmacy;
-    }
+    public double getMilesFromPharmacy() { return milesFromPharmacy; }
 
     public void setMilesFromPharmacy(double distanceFromPharmacy) {
         this.milesFromPharmacy = distanceFromPharmacy;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

@@ -3,6 +3,7 @@ package org.jacob.vaccine_standby.controller;
 import org.jacob.vaccine_standby.model.Patient;
 import org.jacob.vaccine_standby.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,12 +12,12 @@ public class PatientController {
     @Autowired
     private PatientRepository patientRepository;
 
-    @PostMapping("/add")
+    @PostMapping("/addPatient")
     public String addPatient(@RequestParam String firstName, @RequestParam String lastName,
-                             @RequestParam boolean healthcareWorkerStatus, @RequestParam String phoneNumber,
+                             @RequestParam boolean healthcareWorkerStatus, @RequestParam String occupation, @RequestParam String phoneNumber,
                              @RequestParam boolean minorityStatus, @RequestParam double distanceFromPharmacy,
-                             @RequestParam int age, @RequestParam double priorityScore) {
-        Patient patient = new Patient(firstName, healthcareWorkerStatus, lastName, phoneNumber, minorityStatus, distanceFromPharmacy, age, priorityScore);
+                             @RequestParam String age, @RequestParam double priorityScore) {
+        Patient patient = new Patient(firstName, healthcareWorkerStatus, lastName, occupation, phoneNumber, minorityStatus, distanceFromPharmacy, age, priorityScore);
         patient.setFirstName(firstName);
         patient.setLastName(lastName);
         patient.setHealthcareWorkerStatus(healthcareWorkerStatus);
@@ -29,15 +30,21 @@ public class PatientController {
         return "Patient Registered Successfully";
     }
 
+    @GetMapping("/createForm")
+    public String showPatientForm(Model model) {
+        model.addAttribute("patient", new Patient());
+        return "registerPatient";
+    }
+
+    @PostMapping("/saveForm")
+    public String savePatientForm(@ModelAttribute Patient patient) {
+        return "result";
+    }
+
     @GetMapping("/find/{lastName}")
     public Patient findPatientById(@PathVariable String lastName) {
         return patientRepository.findPatientByLastName(lastName);
     }
-
-//    @GetMapping("/list/{numberToList}")
-//    public Patient findByIdNotNullOrderByPriorityScoreAsc(@PathVariable Integer numberToList) {
-//        return patientRepository.findByIdNotNullOrderByPriorityScoreAsc(numberToList);
-//    }
 
     @GetMapping("/find/{lastName}{firstName}")
     public Patient findPatientByLastNameAndFirstName(@PathVariable String lastName, @PathVariable String firstName) {
