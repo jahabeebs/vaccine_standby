@@ -36,27 +36,28 @@ public class Patient {
         this.milesFromPharmacy = distanceFromPharmacy;
         this.age = age;
         this.priorityScore = priorityScore;
+        assignPatientPriorityScore();
     }
 
-    public void assignPatientPriorityScore(Patient patient) {
+    public void assignPatientPriorityScore() {
         double total = 0;
-        if (patient.getMilesFromPharmacy() < 1) {
+        if (getMilesFromPharmacy() < 1) {
             total += 6;
         }
-        if (patient.getMilesFromPharmacy() > 1 && patient.getMilesFromPharmacy() < 5) {
+        if (getMilesFromPharmacy() > 1 && getMilesFromPharmacy() < 5) {
             total += 3;
         }
-        if (patient.getMilesFromPharmacy() > 5) {
+        if (getMilesFromPharmacy() > 5) {
             total -= 3;
         }
-        if (patient.getHealthcareWorkerStatus()) {
+        if (getHealthcareWorkerStatus()) {
             total += 2;
         }
-        if (patient.getMinorityStatus()) {
+        if (getMinorityStatus()) {
             total += 2;
         }
-        total += (Double.valueOf(patient.getAge()) / 20.0);
-        patient.setPriorityScore(total);
+        total += (Double.parseDouble(getAge()) / 20.0);
+        setPriorityScore(total);
     }
 
     public Integer getId() {
