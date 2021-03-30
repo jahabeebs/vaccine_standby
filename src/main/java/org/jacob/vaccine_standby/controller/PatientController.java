@@ -42,9 +42,14 @@ public class PatientController {
         return "index";
     }
 
-    @GetMapping("/find/{lastName}")
-    public Patient findPatientById(@PathVariable String lastName) {
-        return patientRepository.findPatientByLastName(lastName);
+    @GetMapping("/{id}")
+    public Patient findPatientById(@PathVariable Integer id) {
+        return patientRepository.findPatientById(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Patient deletePatientById(@PathVariable Integer id) {
+        return patientRepository.deletePatientById(id);
     }
 
     @GetMapping("/find/{lastName}{firstName}")
@@ -52,13 +57,13 @@ public class PatientController {
         return patientRepository.findPatientByLastNameAndFirstName(lastName, firstName);
     }
 
-    @GetMapping("/list")
-    public Patient findTopByOrderByPriorityScoreDesc() { return patientRepository.findTopByOrderByPriorityScoreDesc();
+    @GetMapping("/find/{lastName}{firstName}")
+    public Patient findPatientByLastNameAndFirstName(@PathVariable String lastName) {
+        return patientRepository.findPatientByLastName(lastName);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public Patient deletePatientById(@PathVariable Integer id) {
-        return patientRepository.deletePatientById(id);
+    @GetMapping("/list")
+    public Patient findTopByOrderByPriorityScoreDesc() { return patientRepository.findTopByOrderByPriorityScoreDesc();
     }
 
 }

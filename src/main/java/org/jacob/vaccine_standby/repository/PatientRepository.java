@@ -4,6 +4,7 @@ import org.jacob.vaccine_standby.model.Patient;
 import org.springframework.data.repository.CrudRepository;
 
 public interface PatientRepository extends CrudRepository<Patient, Integer> {
+    Patient findPatientById(Integer id);
     Patient findPatientByLastName(String lastName);
     Patient findPatientByLastNameAndFirstName(String lastName, String firstName);
     Patient deletePatientById(Integer id);
