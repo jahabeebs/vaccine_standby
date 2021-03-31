@@ -3,11 +3,10 @@ package org.jacob.vaccine_standby.controller;
 import org.jacob.vaccine_standby.model.Patient;
 import org.jacob.vaccine_standby.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class PatientController {
 
     @Autowired
@@ -16,15 +15,15 @@ public class PatientController {
     @PostMapping("/addPatient")
     public String addPatient(@RequestParam String firstName, @RequestParam String lastName,
                              @RequestParam boolean healthcareWorkerStatus, @RequestParam String occupation, @RequestParam String phoneNumber,
-                             @RequestParam boolean minorityStatus, @RequestParam double distanceFromPharmacy,
-                             @RequestParam String age, @RequestParam double priorityScore) {
-        Patient patient = new Patient(firstName, healthcareWorkerStatus, lastName, occupation, phoneNumber, minorityStatus, distanceFromPharmacy, age, priorityScore);
+                             @RequestParam boolean minorityStatus, @RequestParam double milesFromPharmacy,
+                             @RequestParam String age) {
+        Patient patient = new Patient(firstName, healthcareWorkerStatus, lastName, occupation, phoneNumber, minorityStatus, milesFromPharmacy, age);
         patient.setFirstName(firstName);
         patient.setLastName(lastName);
         patient.setHealthcareWorkerStatus(healthcareWorkerStatus);
         patient.setPhoneNumber(phoneNumber);
         patient.setMinorityStatus(minorityStatus);
-        patient.setMilesFromPharmacy(distanceFromPharmacy);
+        patient.setMilesFromPharmacy(milesFromPharmacy);
         patient.setAge(age);
         patient.assignPatientPriorityScore();
         patientRepository.save(patient);
@@ -57,14 +56,13 @@ public class PatientController {
         return patientRepository.findPatientByLastNameAndFirstName(lastName, firstName);
     }
 
-    @GetMapping("/find/{lastName}{firstName}")
-    public Patient findPatientByLastNameAndFirstName(@PathVariable String lastName) {
+    @GetMapping("/find/{lastName}")
+    public Patient findPatientByLastName(@PathVariable String lastName) {
         return patientRepository.findPatientByLastName(lastName);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listTop")
     public Patient findTopByOrderByPriorityScoreDesc() { return patientRepository.findTopByOrderByPriorityScoreDesc();
     }
-
 }
 

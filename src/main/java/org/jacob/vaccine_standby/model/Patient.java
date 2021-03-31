@@ -26,7 +26,7 @@ public class Patient {
     }
 
     public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String occupation, String phoneNumber,
-                   boolean minorityStatus, double distanceFromPharmacy, String age, double priorityScore) {
+                   boolean minorityStatus, double distanceFromPharmacy, String age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.occupation = occupation;
@@ -35,7 +35,6 @@ public class Patient {
         this.minorityStatus = minorityStatus;
         this.milesFromPharmacy = distanceFromPharmacy;
         this.age = age;
-        this.priorityScore = priorityScore;
         assignPatientPriorityScore();
     }
 
