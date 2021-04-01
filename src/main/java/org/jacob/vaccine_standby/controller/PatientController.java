@@ -3,10 +3,11 @@ package org.jacob.vaccine_standby.controller;
 import org.jacob.vaccine_standby.model.Patient;
 import org.jacob.vaccine_standby.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class PatientController {
 
     @Autowired
@@ -30,15 +31,22 @@ public class PatientController {
         return "Patient Registered Successfully";
     }
 
-    @GetMapping("/createForm")
+    @GetMapping("/")
     public String showPatientForm(Model model) {
-        model.addAttribute("patient", new Patient());
+        Patient patient = new Patient();
+        model.addAttribute("patient", patient);
         return "index";
+    }
+
+    @PostMapping("/register")
+    public String submitPatientForm(@ModelAttribute("patient") Patient patient) {
+        System.out.println(patient);
+        return "registration_successful";
     }
 
     @PostMapping("/saveForm")
     public String savePatientForm(@ModelAttribute Patient patient) {
-        return "index";
+        return "registration_successful";
     }
 
     @GetMapping("/{id}")
@@ -62,7 +70,8 @@ public class PatientController {
     }
 
     @GetMapping("/listTop")
-    public Patient findTopByOrderByPriorityScoreDesc() { return patientRepository.findTopByOrderByPriorityScoreDesc();
+    public Patient findTopByOrderByPriorityScoreDesc() {
+        return patientRepository.findTopByOrderByPriorityScoreDesc();
     }
 }
 

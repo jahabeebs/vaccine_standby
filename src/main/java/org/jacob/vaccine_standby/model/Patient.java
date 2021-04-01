@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Patient {
@@ -11,13 +14,17 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Size(min = 3, max = 50)
     private String firstName;
+    @Size(min = 3, max = 50)
     private String lastName;
     private boolean healthcareWorkerStatus;
     private String occupation;
     private String phoneNumber;
     private boolean minorityStatus;
     private double milesFromPharmacy;
+    @Min(value = 18)
+    @Max(value = 120)
     private String age;
     private double priorityScore;
 
