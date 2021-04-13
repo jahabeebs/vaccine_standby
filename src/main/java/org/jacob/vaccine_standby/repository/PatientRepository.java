@@ -9,4 +9,5 @@ public interface PatientRepository extends CrudRepository<Patient, Integer> {
     Patient findPatientByLastNameAndFirstName(String lastName, String firstName);
     Patient deletePatientById(Integer id);
     Patient findTopByOrderByPriorityScoreDesc();
+    Patient save(Patient patient);
 }

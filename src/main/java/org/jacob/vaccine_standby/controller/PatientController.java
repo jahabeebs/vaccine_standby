@@ -40,12 +40,14 @@ public class PatientController {
 
     @PostMapping("/register")
     public String submitPatientForm(@ModelAttribute("patient") Patient patient) {
+        patient.assignPatientPriorityScore();
+        patientRepository.save(patient);
         System.out.println(patient);
         return "registration_successful";
     }
 
     @PostMapping("/saveForm")
-    public String savePatientForm(@ModelAttribute Patient patient) {
+    public String savePatientForm(@ModelAttribute("patient") Patient patient) {
         return "registration_successful";
     }
 
