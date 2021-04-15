@@ -6,30 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PatientController {
 
     @Autowired
     private PatientRepository patientRepository;
-
-    @PostMapping("/addPatient")
-    public String addPatient(@RequestParam String firstName, @RequestParam String lastName,
-                             @RequestParam boolean healthcareWorkerStatus, @RequestParam String occupation, @RequestParam String phoneNumber,
-                             @RequestParam boolean minorityStatus, @RequestParam double milesFromPharmacy,
-                             @RequestParam String age) {
-        Patient patient = new Patient(firstName, healthcareWorkerStatus, lastName, occupation, phoneNumber, minorityStatus, milesFromPharmacy, age);
-        patient.setFirstName(firstName);
-        patient.setLastName(lastName);
-        patient.setHealthcareWorkerStatus(healthcareWorkerStatus);
-        patient.setPhoneNumber(phoneNumber);
-        patient.setMinorityStatus(minorityStatus);
-        patient.setMilesFromPharmacy(milesFromPharmacy);
-        patient.setAge(age);
-        patient.assignPatientPriorityScore();
-        patientRepository.save(patient);
-        return "Patient Registered Successfully";
-    }
 
     @GetMapping("/")
     public String showPatientForm(Model model) {
@@ -46,9 +29,19 @@ public class PatientController {
         return "registration_successful";
     }
 
-    @PostMapping("/saveForm")
-    public String savePatientForm(@ModelAttribute("patient") Patient patient) {
-        return "registration_successful";
+    @GetMapping("/topPerformer")
+    public ModelAndView showTop() {
+        ModelAndView mav = new ModelAndView("highestPriorityPatient");
+        Patient patient = patientRepository.findTopByOrderByPriorityScoreDesc();
+        mav.addObject("patient", patient);
+        return mav;
+    }
+
+//    TODO
+    @PostMapping("/topPerformer/id")
+    public String callAttemptEnforcer(@PathVariable(name="id") Integer id) {
+        patientRepository.findPatientById(id);
+        return null;
     }
 
     @GetMapping("/{id}")
@@ -69,11 +62,6 @@ public class PatientController {
     @GetMapping("/find/{lastName}")
     public Patient findPatientByLastName(@PathVariable String lastName) {
         return patientRepository.findPatientByLastName(lastName);
-    }
-
-    @GetMapping("/listTop")
-    public Patient findTopByOrderByPriorityScoreDesc() {
-        return patientRepository.findTopByOrderByPriorityScoreDesc();
     }
 }
 

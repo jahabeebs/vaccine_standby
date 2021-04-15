@@ -26,6 +26,7 @@ public class Patient {
     @Min(value = 18)
     @Max(value = 120)
     private String age;
+    private int callAttempts;
     private double priorityScore;
 
     public Patient() {
@@ -33,7 +34,7 @@ public class Patient {
     }
 
     public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String occupation, String phoneNumber,
-                   boolean minorityStatus, double distanceFromPharmacy, String age) {
+                   boolean minorityStatus, double distanceFromPharmacy, String age, int callAttempts) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.occupation = occupation;
@@ -42,6 +43,7 @@ public class Patient {
         this.minorityStatus = minorityStatus;
         this.milesFromPharmacy = distanceFromPharmacy;
         this.age = age;
+        this.callAttempts = callAttempts;
         assignPatientPriorityScore();
     }
 
@@ -61,6 +63,9 @@ public class Patient {
         }
         if (getMinorityStatus()) {
             total += 2;
+        }
+        if (getOccupation().equals("Healthcare and Social Assistance")) {
+            total += 1;
         }
         total += (Double.parseDouble(getAge()) / 20.0);
         setPriorityScore(total);
