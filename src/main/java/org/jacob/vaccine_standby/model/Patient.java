@@ -141,6 +141,14 @@ public class Patient {
         this.age = age;
     }
 
+    public int getCallAttempts() {
+        return callAttempts;
+    }
+
+    public void setCallAttempts(int callAttempts) {
+        this.callAttempts = callAttempts;
+    }
+
     public double getPriorityScore() {
         return priorityScore;
     }

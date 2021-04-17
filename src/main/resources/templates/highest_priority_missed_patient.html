@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Highest Priority Missed Patient</title>
+</head>
+<h1>
+    Standby List Sign-Up
+</h1>
+<form action="#" th:action="@{/register}" method="post" th:object="${patient}">
+    <p>Highest Priority Patient<label>
+        <input type="text" th:field="*{firstName}" readonly="readonly"/>
+    </label>
+    </p>
+    <p> Last Name: <input type="text" th:field="*{lastName}" readonly="readonly"/>
+    </p>
+    <p> In what category would you classify your occupation?
+        <select type="radio" th:field="*{occupation}">
+            <option value="Accommodation and Food Services">Accommodation and Food Services</option>
+            <option value="Administration, Business Support and Waste Management Services">Administration, Business
+                Support and Waste Management Services
+            </option>
+            <option value="Agriculture, Forestry, Fishing and Hunting">Agriculture, Forestry, Fishing and Hunting
+            </option>
+            <option value="Arts, Entertainment and Recreation">Arts, Entertainment and Recreation</option>
+            <option value="Construction">Construction</option>
+            <option value="Educational Services">Educational Services</option>
+            <option value="Finance and Insurance">Finance and Insurance</option>
+            <option value="Healthcare and Social Assistance">Healthcare and Social Assistance</option>
+            <option value="Information">Information</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Mining">Mining</option>
+            <option value="Other Services (except Public Administration)">Other Services (except Public
+                Administration)
+            </option>
+            <option value="Professional, Scientific and Technical Services">Professional, Scientific and Technical
+                Services
+            </option>
+            <option value="Real Estate, Rental and Leasing">Real Estate, Rental and Leasing</option>
+            <option value="Retail Trade">Retail Trade</option>
+            <option value="Transportation and Warehousing">Transportation and Warehousing</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Wholesale Trade">Wholesale Trade</option>
+        </select>
+    </p>
+    <p>
+        <label>Age:</label>
+        <input type="number" th:field="*{age}" name="num" readonly="readonly">
+    </p>
+    <p>
+        <label>Enter a phone number:</label><br><br>
+        <input type="tel" th:field="*{phoneNumber}" readonly="readonly" id="phone" name="phone"
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+               required>
+    </p>
+    <p><input type="submit" value="Submit" readonly="readonly"/> <br> <input type="reset" value="Reset"/>
+    <br><a th:action="@{'/delete/' + ${patient.id}}" method="delete" th:object="${patient}">Delete</a></p>
+</form>
+</html>

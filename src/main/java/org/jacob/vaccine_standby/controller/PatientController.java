@@ -31,17 +31,18 @@ public class PatientController {
 
     @GetMapping("/topPerformer")
     public ModelAndView showTop() {
-        ModelAndView mav = new ModelAndView("highestPriorityPatient");
+        ModelAndView mav = new ModelAndView("highest_priority_patient");
         Patient patient = patientRepository.findTopByOrderByPriorityScoreDesc();
         mav.addObject("patient", patient);
         return mav;
     }
 
-//    TODO
-    @PostMapping("/topPerformer/id")
-    public String callAttemptEnforcer(@PathVariable(name="id") Integer id) {
-        patientRepository.findPatientById(id);
-        return null;
+    @PostMapping("/topMissed")
+    public ModelAndView callAttemptEnforcer() {
+        ModelAndView mav = new ModelAndView("highest_priority_missed_patient");
+        Patient patient = patientRepository.findTopByOrderByPriorityScoreDescCallAttemptsGreaterThanZero();
+        mav.addObject("patient", patient);
+        return mav;
     }
 
     @GetMapping("/{id}")
