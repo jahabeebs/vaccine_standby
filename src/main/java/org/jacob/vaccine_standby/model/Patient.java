@@ -26,7 +26,7 @@ public class Patient {
     @Min(value = 18)
     @Max(value = 120)
     private String age;
-    private int callAttempts;
+    private boolean called;
     private double priorityScore;
 
     public Patient() {
@@ -43,7 +43,7 @@ public class Patient {
         this.minorityStatus = minorityStatus;
         this.milesFromPharmacy = distanceFromPharmacy;
         this.age = age;
-        this.callAttempts = callAttempts;
+        this.called = called;
         assignPatientPriorityScore();
     }
 
@@ -141,12 +141,12 @@ public class Patient {
         this.age = age;
     }
 
-    public int getCallAttempts() {
-        return callAttempts;
+    public boolean getCalled() {
+        return called;
     }
 
-    public void setCallAttempts(int callAttempts) {
-        this.callAttempts = callAttempts;
+    public void setCalled(boolean called) {
+        this.called = called;
     }
 
     public double getPriorityScore() {

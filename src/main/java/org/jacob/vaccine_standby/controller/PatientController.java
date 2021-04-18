@@ -37,12 +37,20 @@ public class PatientController {
         return mav;
     }
 
-    @PostMapping("/topMissed")
+    @GetMapping("/topMissed")
     public ModelAndView callAttemptEnforcer() {
         ModelAndView mav = new ModelAndView("highest_priority_missed_patient");
-        Patient patient = patientRepository.findTopByOrderByPriorityScoreDescCallAttemptsGreaterThanZero();
+        Patient patient = patientRepository.findTopByCalledTrueOrderByPriorityScoreDesc();
         mav.addObject("patient", patient);
         return mav;
+    }
+
+    @PutMapping("/called/{id}")
+    public String patientCalled(@PathVariable(name = "id") Integer id) {
+        Patient patient = patientRepository.findPatientById(id);
+        patient.setCalled(true);
+        patientRepository.save(patient);
+        return "redirect:/topPerformer";
     }
 
     @GetMapping("/{id}")

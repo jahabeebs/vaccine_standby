@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PatientRepository extends CrudRepository<Patient, Integer> {
     Patient findPatientById(Integer id);
-    Patient findTopByOrderByPriorityScoreDescCallAttemptsGreaterThanZero();
+    Patient findTopByCalledTrueOrderByPriorityScoreDesc();
     Patient findPatientByLastName(String lastName);
     Patient findPatientByLastNameAndFirstName(String lastName, String firstName);
     Patient deletePatientById(Integer id);

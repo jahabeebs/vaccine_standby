@@ -55,5 +55,7 @@
     </p>
 
     <p><input type="submit" value="Submit" readonly="readonly"/> <br> <input type="reset" value="Reset"/></p>
+    <button type="button"><a th:action="@{'/delete/' + ${patient.id}}" method="post" th:object="${patient}">Called - Patient Coming</a></button>
+    <button><a th:action="@{'/called/' + ${patient.id}}" method="put" th:object="${patient}">Called - No Response</a></button>
 </form>
 </html>
