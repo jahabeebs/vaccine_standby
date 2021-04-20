@@ -53,12 +53,5 @@
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                required>
     </p>
-
-    <p><input type="submit" value="Submit" readonly="readonly"/> <br> <input type="reset" value="Reset"/></p>
 </form>
-<form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
-    <button type="submit">Called - Patient Coming</button>
-</form>
-<button type="button"><a th:href="@{'/called/' + ${patient.id}}">Called - No Response</a></button>
-
 </html>

@@ -54,13 +54,17 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public Patient findPatientById(@PathVariable Integer id) {
-        return patientRepository.findPatientById(id);
+    public ModelAndView findPatientById(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("patient_id_search");
+        Patient patient = patientRepository.findPatientById(id);
+        mav.addObject("patient", patient);
+        return mav;
     }
 
     @DeleteMapping("/delete/{id}")
-    public Patient deletePatientById(@PathVariable Integer id) {
-        return patientRepository.deletePatientById(id);
+    public String deletePatientById(@PathVariable(name = "id") Integer id) {
+        patientRepository.deleteById(id);
+        return "index";
     }
 
     @GetMapping("/find/{lastName}{firstName}")
