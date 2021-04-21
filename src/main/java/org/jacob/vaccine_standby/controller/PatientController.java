@@ -32,7 +32,7 @@ public class PatientController {
     @GetMapping("/topPerformer")
     public ModelAndView showTop() {
         ModelAndView mav = new ModelAndView("highest_priority_patient");
-        Patient patient = patientRepository.findTopByOrderByPriorityScoreDesc();
+        Patient patient = patientRepository.findTopByCalledFalseOrderByPriorityScoreDesc();
         mav.addObject("patient", patient);
         return mav;
     }
@@ -57,14 +57,19 @@ public class PatientController {
     public ModelAndView findPatientById(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("patient_id_search");
         Patient patient = patientRepository.findPatientById(id);
-        mav.addObject("patient", patient);
+        if (patient == null) {
+            ModelAndView mav2 = new ModelAndView("no_results_found");
+            return mav2;
+        } else {
+            mav.addObject("patient", patient);
+        }
         return mav;
     }
 
     @DeleteMapping("/delete/{id}")
     public String deletePatientById(@PathVariable(name = "id") Integer id) {
         patientRepository.deleteById(id);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/find/{lastName}{firstName}")

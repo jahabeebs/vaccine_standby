@@ -5,11 +5,10 @@
     <title>Highest Priority Patient</title>
 </head>
 <h1>
-    Standby List Sign-Up
+    Highest Priority Patient
 </h1>
 <form action="#" th:action="@{/register}" method="post" th:object="${patient}">
-    <p>Highest Priority Patient<label>
-        <input type="text" th:field="*{firstName}" readonly="readonly"/>
+    <label>First Name: <input type="text" th:field="*{firstName}" readonly="readonly"/>
     </label>
     </p>
     <p> Last Name: <input type="text" th:field="*{lastName}" readonly="readonly"/>
@@ -59,6 +58,7 @@
 <form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
     <button type="submit">Called - Patient Coming</button>
 </form>
-<button type="button"><a th:href="@{'/called/' + ${patient.id}}">Called - No Response</a></button>
-
+<form action="#" th:method="put" th:action="@{'/called/' + ${patient.id}}">
+    <button type="submit">Called - No Answer</button>
+</form>
 </html>
