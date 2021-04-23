@@ -33,7 +33,12 @@ public class PatientController {
     public ModelAndView showTop() {
         ModelAndView mav = new ModelAndView("highest_priority_patient");
         Patient patient = patientRepository.findTopByCalledFalseOrderByPriorityScoreDesc();
-        mav.addObject("patient", patient);
+        if (patient == null) {
+            ModelAndView mav2 = new ModelAndView("no_results_found");
+            return mav2;
+        } else {
+            mav.addObject("patient", patient);
+        }
         return mav;
     }
 
@@ -41,7 +46,12 @@ public class PatientController {
     public ModelAndView callAttemptEnforcer() {
         ModelAndView mav = new ModelAndView("highest_priority_missed_patient");
         Patient patient = patientRepository.findTopByCalledTrueOrderByPriorityScoreDesc();
-        mav.addObject("patient", patient);
+        if (patient == null) {
+            ModelAndView mav2 = new ModelAndView("no_results_found");
+            return mav2;
+        } else {
+            mav.addObject("patient", patient);
+        }
         return mav;
     }
 
