@@ -28,6 +28,8 @@ public class Patient {
     private String age;
     private boolean called;
     private double priorityScore;
+//    todo: add onetoone annotation and configure location class
+//    private Location location;
 
     public Patient() {
 

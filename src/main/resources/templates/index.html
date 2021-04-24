@@ -7,15 +7,15 @@
 <h1>
     Standby List Sign-Up
 </h1>
-<form action="#" th:action="@{/register}" method="post" th:object="${patient}">
+<form action="#" method="post" th:action="@{/register}" th:object="${patient}">
     <p>First Name: <label>
-        <input type="text" th:field="*{firstName}"/>
+        <input th:field="*{firstName}" type="text"/>
     </label>
     </p>
-    <p> Last Name: <input type="text" th:field="*{lastName}"/>
+    <p> Last Name: <input th:field="*{lastName}" type="text"/>
     </p>
     <p> In what category would you classify your occupation?
-        <select type="radio" th:field="*{occupation}">
+        <select th:field="*{occupation}" type="radio">
             <option value="Accommodation and Food Services">Accommodation and Food Services</option>
             <option value="Administration, Business Support and Waste Management Services">Administration, Business
                 Support and Waste Management Services
@@ -45,15 +45,34 @@
     </p>
     <p>
         <label>Age:</label>
-        <input type="number" th:field="*{age}" name="num">
+        <input name="num" th:field="*{age}" type="number">
     </p>
     <p>
         <label>Enter a phone number:</label><br><br>
-        <input type="tel" th:field="*{phoneNumber}" id="phone" name="phone"
-               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-               required>
+        <input id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required
+               th:field="*{phoneNumber}"
+               type="tel">
     </p>
-
+    <p>
+        <label>Press the button below for us to find your nearest pharmacy:</label>
+    </p>
+    <button th:onclick="getLocation()" type="button">Calculate Location from Pharmacy</button>
+    <p id="location-finder"></p>
     <p><input type="submit" value="Submit"/> <br> <input type="reset" value="Reset"/></p>
 </form>
+<script>
+        let x = document.getElementById("location-finder");
+        function getLocation() {
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+    }
+
+        function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude;
+    }
+</script>
 </html>
