@@ -25,7 +25,6 @@ public class PatientController {
     public String submitPatientForm(@ModelAttribute("patient") Patient patient) {
         patient.assignPatientPriorityScore();
         patientRepository.save(patient);
-        System.out.println(patient);
         return "registration_successful";
     }
 

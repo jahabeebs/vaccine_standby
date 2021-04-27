@@ -1,18 +1,17 @@
 package org.jacob.vaccine_standby.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "patient")
 public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
     @Size(min = 3, max = 50)
     private String firstName;
@@ -28,15 +27,16 @@ public class Patient {
     private String age;
     private boolean called;
     private double priorityScore;
-//    todo: add onetoone annotation and configure location class
-//    private Location location;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
 
     public Patient() {
 
     }
 
     public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String occupation, String phoneNumber,
-                   boolean minorityStatus, double distanceFromPharmacy, String age, int callAttempts) {
+                   boolean minorityStatus, double distanceFromPharmacy, String age, boolean called, Location location) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.occupation = occupation;
@@ -46,6 +46,7 @@ public class Patient {
         this.milesFromPharmacy = distanceFromPharmacy;
         this.age = age;
         this.called = called;
+        this.location = location;
         assignPatientPriorityScore();
     }
 
@@ -129,7 +130,9 @@ public class Patient {
         this.minorityStatus = minorityStatus;
     }
 
-    public double getMilesFromPharmacy() { return milesFromPharmacy; }
+    public double getMilesFromPharmacy() {
+        return milesFromPharmacy;
+    }
 
     public void setMilesFromPharmacy(double distanceFromPharmacy) {
         this.milesFromPharmacy = distanceFromPharmacy;
@@ -157,5 +160,13 @@ public class Patient {
 
     public void setPriorityScore(double priorityScore) {
         this.priorityScore = priorityScore;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

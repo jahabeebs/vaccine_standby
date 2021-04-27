@@ -58,19 +58,42 @@
     </p>
     <button th:onclick="getLocation()" type="button">Calculate Location from Pharmacy</button>
     <p id="location-finder"></p>
+    <p>
+        <label>Press to save</label><br><br>
+        <input id="location" name="location"
+               th:field="*{location}"
+               type="button">
+    </p>
     <p><input type="submit" value="Submit"/> <br> <input type="reset" value="Reset"/></p>
 </form>
 <script>
-        let x = document.getElementById("location-finder");
-        function getLocation() {
+    let x = document.getElementById("location-finder");
+
+    function getLocation() {
         if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
     }
 
-        function showPosition(position) {
+    function assignLatAndLong(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        // TODO: decide how to assign location variable and pass it to controller
+    }
+
+    function saveLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                assignLatAndLong();
+            });
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
         x.innerHTML = "Latitude: " + position.coords.latitude +
             "<br>Longitude: " + position.coords.longitude;
     }
