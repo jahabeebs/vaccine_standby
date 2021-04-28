@@ -60,14 +60,18 @@
     <p id="location-finder"></p>
     <p>
         <label>Press to save</label><br><br>
-        <input id="location" name="location"
-               th:field="*{location}"
-               type="button">
+        <button th:onclick="saveLocation()"
+
+
+                type="button">Press Me To Save
+        </button>
     </p>
+    <p type=text th:value="*{location}" th:name="location-passer" id="location-passer"></p>
     <p><input type="submit" value="Submit"/> <br> <input type="reset" value="Reset"/></p>
 </form>
-<script>
+<script th:inline="javascript">
     let x = document.getElementById("location-finder");
+    let y = document.getElementById("location-passer");
 
     function getLocation() {
         if (navigator.geolocation) {
@@ -77,20 +81,19 @@
         }
     }
 
-    function assignLatAndLong(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        // TODO: decide how to assign location variable and pass it to controller
-    }
-
     function saveLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                assignLatAndLong();
-            });
+            navigator.geolocation.getCurrentPosition(assignLatAndLong);
         } else {
             x.innerHTML = "Geolocation is not supported by this browser.";
         }
+    }
+
+    function assignLatAndLong(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const location = "" + latitude + "," + longitude;
+        y.innerHTML = location;
     }
 
     function showPosition(position) {
