@@ -66,7 +66,7 @@
                 type="button">Press Me To Save
         </button>
     </p>
-    <p type=text th:value="*{location}" th:name="location-passer" id="location-passer"></p>
+    <input type="text" th:field="*{location}" id="location-passer" name="location-passer">
     <p><input type="submit" value="Submit"/> <br> <input type="reset" value="Reset"/></p>
 </form>
 <script th:inline="javascript">
@@ -93,7 +93,7 @@
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         const location = "" + latitude + "," + longitude;
-        y.innerHTML = location;
+        y.value = location;
     }
 
     function showPosition(position) {

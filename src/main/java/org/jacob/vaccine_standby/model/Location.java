@@ -17,6 +17,12 @@ public class Location {
     public Location() {
     }
 
+    public Location(String locationString) {
+        String[] locationArray = locationString.split(",", 2);
+        setLatitude(Double.parseDouble(locationArray[0]));
+        setLongitude(Double.parseDouble(locationArray[1]));
+    }
+
     public Integer getId() {
         return id;
     }

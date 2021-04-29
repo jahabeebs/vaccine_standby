@@ -32,7 +32,6 @@ public class Patient {
     private Location location;
 
     public Patient() {
-
     }
 
     public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String occupation, String phoneNumber,
