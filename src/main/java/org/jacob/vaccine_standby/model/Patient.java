@@ -49,7 +49,15 @@ public class Patient {
         assignPatientPriorityScore();
     }
 
+    public void calculateDistanceFromPharmacy() {
+        Location samplePharmacy = new Location();
+        samplePharmacy.setLongitude(-84.389740);
+        samplePharmacy.setLatitude(39.296750);
+        setMilesFromPharmacy(location.distanceTo(samplePharmacy));
+    }
+
     public void assignPatientPriorityScore() {
+        calculateDistanceFromPharmacy();
         double total = 0;
         if (getMilesFromPharmacy() < 1) {
             total += 6;
@@ -67,6 +75,7 @@ public class Patient {
             total += 2;
         }
         if (getOccupation().equals("Healthcare and Social Assistance")) {
+            setHealthcareWorkerStatus(true);
             total += 1;
         }
         total += (Double.parseDouble(getAge()) / 20.0);

@@ -57,7 +57,10 @@
 <form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
     <button type="submit">Called - No Response (Delete Permanently)</button>
 </form>
-<form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
+<form action="#" th:method="post" th:action="@{'/patientsComing'}">
     <button type="submit">Called - Patient Coming</button>
+</form>
+<form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
+    <button type="submit">Delete</button>
 </form>
 </html>

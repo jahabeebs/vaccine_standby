@@ -8,11 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class PatientController {
 
     @Autowired
     private PatientRepository patientRepository;
+    List<Patient> patientsComingList = new ArrayList<>();
 
     @GetMapping("/")
     public String showPatientForm(Model model) {
@@ -26,6 +30,19 @@ public class PatientController {
         patient.assignPatientPriorityScore();
         patientRepository.save(patient);
         return "registration_successful";
+    }
+
+    @GetMapping("/listComingPatients")
+    public String listComingPatients(Model model) {
+        model.addAttribute("patientsComingList", patientsComingList);
+        return "list_of_patients_coming";
+    }
+
+    @PostMapping("/patientsComing")
+    public String patientsComing(@ModelAttribute("patient") Patient patient) {
+        patientsComingList.add(patient);
+        patientRepository.delete(patient);
+        return "highest_priority_missed_patient";
     }
 
     @GetMapping("/topPerformer")
