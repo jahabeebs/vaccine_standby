@@ -34,15 +34,20 @@ public class PatientController {
 
     @GetMapping("/listComingPatients")
     public String listComingPatients(Model model) {
+        if (patientsComingList.isEmpty()) {
+            return "no_results_found";
+        }
         model.addAttribute("patientsComingList", patientsComingList);
         return "list_of_patients_coming";
     }
 
-    @PostMapping("/patientsComing")
-    public String patientsComing(@ModelAttribute("patient") Patient patient) {
+    @PutMapping("/patientsComing/{id}")
+    public String patientsComing(@PathVariable(name = "id") Integer id) {
+        Patient patient = patientRepository.findPatientById(id);
+        patient.setCalled(true);
         patientsComingList.add(patient);
-        patientRepository.delete(patient);
-        return "highest_priority_missed_patient";
+        patientRepository.save(patient);
+        return "redirect:/topPerformer";
     }
 
     @GetMapping("/topPerformer")
@@ -94,6 +99,16 @@ public class PatientController {
 
     @DeleteMapping("/delete/{id}")
     public String deletePatientById(@PathVariable(name = "id") Integer id) {
+        Patient patientToRemove = patientRepository.findPatientById(id);
+        boolean patientToDeleteFound = false;
+        if (!patientsComingList.isEmpty()) {
+            for (Patient patient : patientsComingList) {
+                if (patient.getId() == patientToRemove.getId() && !patientToDeleteFound) {
+                    patientsComingList.remove(patient);
+                    patientToDeleteFound = true;
+                }
+            }
+        }
         patientRepository.deleteById(id);
         return "redirect:/";
     }
