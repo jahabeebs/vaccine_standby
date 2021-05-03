@@ -14,9 +14,9 @@ import java.util.List;
 @Controller
 public class PatientController {
 
+    List<Patient> patientsComingList = new ArrayList<>();
     @Autowired
     private PatientRepository patientRepository;
-    List<Patient> patientsComingList = new ArrayList<>();
 
     @GetMapping("/")
     public String showPatientForm(Model model) {
@@ -100,14 +100,8 @@ public class PatientController {
     @DeleteMapping("/delete/{id}")
     public String deletePatientById(@PathVariable(name = "id") Integer id) {
         Patient patientToRemove = patientRepository.findPatientById(id);
-        boolean patientToDeleteFound = false;
         if (!patientsComingList.isEmpty()) {
-            for (Patient patient : patientsComingList) {
-                if (patient.getId() == patientToRemove.getId() && !patientToDeleteFound) {
-                    patientsComingList.remove(patient);
-                    patientToDeleteFound = true;
-                }
-            }
+            patientsComingList.removeIf(patient -> (patientToRemove.getId() == patient.getId()));
         }
         patientRepository.deleteById(id);
         return "redirect:/";

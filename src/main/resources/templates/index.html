@@ -54,38 +54,27 @@
                type="tel">
     </p>
     <p>
-        <label>Press the button below for us to find your nearest pharmacy:</label>
-    </p>
-    <button th:onclick="getLocation()" type="button">Calculate Location from Pharmacy</button>
-    <p id="location-finder"></p>
-    <p>
-        <label>Press to save</label><br><br>
-        <button th:onclick="saveLocation()"
-
-
-                type="button">Press Me To Save
+        <label>Press the button below for us to find your nearest pharmacy:</label><br><br>
+        <button th:onclick="saveLocation()" type="button">
+            Calculate Location From Pharmacy
         </button>
     </p>
-    <input type="text" th:field="*{location}" id="location-passer" name="location-passer">
-    <p><input type="submit" value="Submit"/> <br> <input type="reset" value="Reset"/></p>
+    <div id="distanceCalculatedText"><b>Distance Successfully Calculated</b></div>
+    <input hidden id="location-passer" name="location-passer" th:field="*{location}" type="text">
+    <p><input th:onclick="hideDistanceCalculatedText()" type="submit" value="Submit"/> <br> <input type="reset"
+                                                                                                   value="Reset"/></p>
 </form>
 <script th:inline="javascript">
-    let x = document.getElementById("location-finder");
     let y = document.getElementById("location-passer");
-
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
+    let z = document.getElementById("distanceCalculatedText");
+    document.getElementById("distanceCalculatedText").style.display = "none";
 
     function saveLocation() {
         if (navigator.geolocation) {
+            z.style.display = "block";
             navigator.geolocation.getCurrentPosition(assignLatAndLong);
         } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
+            y.innerHTML = "Geolocation is not supported by this browser.";
         }
     }
 
@@ -96,9 +85,8 @@
         y.value = location;
     }
 
-    function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
+    function hideDistanceCalculatedText() {
+        z.style.display = "none";
     }
 </script>
 </html>
