@@ -47,10 +47,10 @@ public class PatientController {
         patient.setCalled(true);
         patientsComingList.add(patient);
         patientRepository.save(patient);
-        return "redirect:/topPerformer";
+        return "redirect:/topPatient";
     }
 
-    @GetMapping("/topPerformer")
+    @GetMapping("/topPatient")
     public ModelAndView showTop() {
         ModelAndView mav = new ModelAndView("highest_priority_patient");
         Patient patient = patientRepository.findTopByCalledFalseOrderByPriorityScoreDesc();
@@ -81,7 +81,7 @@ public class PatientController {
         Patient patient = patientRepository.findPatientById(id);
         patient.setCalled(true);
         patientRepository.save(patient);
-        return "redirect:/topPerformer";
+        return "redirect:/topPatient";
     }
 
     @GetMapping("/{id}")
@@ -105,16 +105,6 @@ public class PatientController {
         }
         patientRepository.deleteById(id);
         return "redirect:/";
-    }
-
-    @GetMapping("/find/{lastName}{firstName}")
-    public Patient findPatientByLastNameAndFirstName(@PathVariable String lastName, @PathVariable String firstName) {
-        return patientRepository.findPatientByLastNameAndFirstName(lastName, firstName);
-    }
-
-    @GetMapping("/find/{lastName}")
-    public Patient findPatientByLastName(@PathVariable String lastName) {
-        return patientRepository.findPatientByLastName(lastName);
     }
 }
 

@@ -8,10 +8,6 @@ public interface PatientRepository extends CrudRepository<Patient, Integer> {
 
     Patient findTopByCalledFalseOrderByPriorityScoreDesc();
 
-    Patient findPatientByLastName(String lastName);
-
-    Patient findPatientByLastNameAndFirstName(String lastName, String firstName);
-
     void deleteById(Integer id);
 
     Patient findTopByCalledTrueOrderByPriorityScoreDesc();

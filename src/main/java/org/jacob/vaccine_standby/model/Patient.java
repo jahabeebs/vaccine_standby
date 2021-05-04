@@ -20,7 +20,7 @@ public class Patient {
     private boolean healthcareWorkerStatus;
     private String occupation;
     private String phoneNumber;
-    private boolean minorityStatus;
+    private String race;
     private double milesFromPharmacy;
     @Min(value = 18)
     @Max(value = 120)
@@ -35,13 +35,13 @@ public class Patient {
     }
 
     public Patient(String firstName, boolean healthcareWorkerStatus, String lastName, String occupation, String phoneNumber,
-                   boolean minorityStatus, double distanceFromPharmacy, String age, boolean called, Location location) {
+                   String race, double distanceFromPharmacy, String age, boolean called, Location location) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.occupation = occupation;
         this.healthcareWorkerStatus = healthcareWorkerStatus;
         this.phoneNumber = phoneNumber;
-        this.minorityStatus = minorityStatus;
+        this.race = race;
         this.milesFromPharmacy = distanceFromPharmacy;
         this.age = age;
         this.called = called;
@@ -71,7 +71,7 @@ public class Patient {
         if (getHealthcareWorkerStatus()) {
             total += 2;
         }
-        if (getMinorityStatus()) {
+        if (!race.equals("White")) {
             total += 2;
         }
         if (getOccupation().equals("Healthcare and Social Assistance")) {
@@ -130,12 +130,12 @@ public class Patient {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean getMinorityStatus() {
-        return minorityStatus;
+    public String getRace() {
+        return race;
     }
 
-    public void setMinorityStatus(boolean minorityStatus) {
-        this.minorityStatus = minorityStatus;
+    public void setRace(String ethnicity) {
+        this.race = ethnicity;
     }
 
     public double getMilesFromPharmacy() {

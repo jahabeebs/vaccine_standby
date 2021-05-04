@@ -43,6 +43,16 @@
             <option value="Wholesale Trade">Wholesale Trade</option>
         </select>
     </p>
+    <p> With which race do you most closely identify?
+        <select th:field="*{race}" type="radio">
+            <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+            <option value="Asian">Asian</option>
+            <option value="Black or African American">Black or African American</option>
+            <option value="Hispanic or Latino">Hispanic or Latino</option>
+            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+            <option value="White">White</option>
+        </select>
+    </p>
     <p>
         <label>Age:</label>
         <input name="num" th:field="*{age}" type="number">
