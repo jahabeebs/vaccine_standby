@@ -7,11 +7,7 @@
 <h1>
     Registration Successful
 </h1>
-<button onclick="goBack()">Submit Another Form</button>
-
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
+<form action="#" th:method="get" th:action="@{'/'}">
+    <button type="submit">Submit Another Form</button>
+</form>
 </html>

@@ -71,9 +71,6 @@ public class Patient {
         if (getHealthcareWorkerStatus()) {
             total += 2;
         }
-        if (!race.equals("White")) {
-            total += 2;
-        }
         if (getOccupation().equals("Healthcare and Social Assistance")) {
             setHealthcareWorkerStatus(true);
             total += 1;

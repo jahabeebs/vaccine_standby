@@ -25,6 +25,11 @@ public class PatientController {
         return "index";
     }
 
+    @GetMapping("/error")
+    public String pageNotFound(Model model) {
+        return "error";
+    }
+
     @PostMapping("/register")
     public String submitPatientForm(@ModelAttribute("patient") Patient patient) {
         patient.assignPatientPriorityScore();
@@ -44,8 +49,9 @@ public class PatientController {
     @PutMapping("/patientsComing/{id}")
     public String patientsComing(@PathVariable(name = "id") Integer id) {
         Patient patient = patientRepository.findPatientById(id);
-        patient.setCalled(true);
-        patientsComingList.add(patient);
+        if (!patientsComingList.contains(patient)) {
+            patientsComingList.add(patient);
+        }
         patientRepository.save(patient);
         return "redirect:/topPatient";
     }
