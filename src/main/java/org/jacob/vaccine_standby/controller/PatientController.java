@@ -51,8 +51,8 @@ public class PatientController {
         Patient patient = patientRepository.findPatientById(id);
         if (!patientsComingList.contains(patient)) {
             patientsComingList.add(patient);
+            patientRepository.deleteById(patient.getId());
         }
-        patientRepository.save(patient);
         return "redirect:/topPatient";
     }
 
@@ -105,9 +105,8 @@ public class PatientController {
 
     @DeleteMapping("/delete/{id}")
     public String deletePatientById(@PathVariable(name = "id") Integer id) {
-        Patient patientToRemove = patientRepository.findPatientById(id);
         if (!patientsComingList.isEmpty()) {
-            patientsComingList.removeIf(patient -> (patientToRemove.getId() == patient.getId()));
+            patientsComingList.removeIf(patient -> (id == patient.getId()));
         }
         patientRepository.deleteById(id);
         return "redirect:/";
