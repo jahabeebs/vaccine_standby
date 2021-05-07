@@ -14,9 +14,10 @@ import java.util.List;
 @Controller
 public class PatientController {
 
-    List<Patient> patientsComingList = new ArrayList<>();
     @Autowired
     private PatientRepository patientRepository;
+
+    List<Patient> patientsComingList = new ArrayList<>();
 
     @GetMapping("/")
     public String showPatientForm(Model model) {
@@ -53,7 +54,7 @@ public class PatientController {
             patientsComingList.add(patient);
             patientRepository.deleteById(patient.getId());
         }
-        return "redirect:/topPatient";
+            return "redirect:/listComingPatients";
     }
 
     @GetMapping("/topPatient")
@@ -110,6 +111,14 @@ public class PatientController {
         }
         patientRepository.deleteById(id);
         return "redirect:/";
+    }
+
+    @DeleteMapping("/deleteFromComingList/{id}")
+    public String deletePatientFromComingList(@PathVariable(name = "id") Integer id) {
+        if (!patientsComingList.isEmpty()) {
+            patientsComingList.removeIf(patient -> (id == patient.getId()));
+        }
+        return "redirect:/listComingPatients";
     }
 }
 

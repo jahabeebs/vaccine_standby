@@ -12,10 +12,17 @@
         <input type="text" th:field="*{firstName}" readonly="readonly"/>
     </label>
     </p>
-    <p> Last Name: <input type="text" th:field="*{lastName}" readonly="readonly"/>
+    <p>
+        <label>
+        Last Name: <input type="text" th:field="*{lastName}" readonly="readonly"/>
+        </label>
     </p>
-    <p> In what category would you classify your occupation?
-        <select type="radio" th:field="*{occupation}">
+    <p>
+        <label>
+        In what category would you classify your occupation?
+        </label>
+        <label>
+        <select th:field="*{occupation}">
             <option value="Accommodation and Food Services">Accommodation and Food Services</option>
             <option value="Administration, Business Support and Waste Management Services">Administration, Business
                 Support and Waste Management Services
@@ -42,22 +49,25 @@
             <option value="Utilities">Utilities</option>
             <option value="Wholesale Trade">Wholesale Trade</option>
         </select>
+        </label>
     </p>
     <p>
-        <label>Age:</label>
+        <label>Age:
         <input type="number" th:field="*{age}" name="num" readonly="readonly">
+        </label>
     </p>
     <p>
-        <label>Enter a phone number:</label><br><br>
+        <label>Enter a phone number:<br><br>
         <input type="tel" th:field="*{phoneNumber}" readonly="readonly" id="phone" name="phone"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                required>
+        </label>
     </p>
-</form>
-<form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
-    <button type="submit">Called - No Response (Delete Permanently)</button>
 </form>
 <form action="#" th:method="put" th:action="@{'/patientsComing/' + ${patient.id}}">
     <button type="submit">Called - Patient Coming</button>
+</form>
+<form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
+    <button type="submit">Called - No Response (Delete Permanently)</button>
 </form>
 </html>

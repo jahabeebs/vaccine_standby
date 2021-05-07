@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Patients Coming</title>
 </head>
-<h1>
-    Patients Coming
-</h1>
 <body>
 <div align="center">
     <h1>Patients Coming</h1>
@@ -29,7 +26,7 @@
             <td th:text="${patient.age}">Age</td>
             <td th:text="${patient.phoneNumber}">Phone #</td>
             <td>
-                <form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
+                <form action="#" th:method="delete" th:action="@{'/deleteFromComingList/' + ${patient.id}}">
                     <button type="submit">Delete</button>
                 </form>
             </td>
