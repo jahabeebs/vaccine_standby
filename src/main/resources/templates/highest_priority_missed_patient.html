@@ -5,7 +5,7 @@
     <title>Highest Priority Missed Patient</title>
 </head>
 <h1>
-    Standby List Sign-Up
+    Highest Priority Missed Patient
 </h1>
 <form action="#" th:action="@{/register}" method="post" th:object="${patient}">
     <p>Highest Priority Patient<label>
@@ -69,5 +69,9 @@
 </form>
 <form action="#" th:method="delete" th:action="@{'/delete/' + ${patient.id}}">
     <button type="submit">Called - No Response (Delete Permanently)</button>
+</form>
+<br>
+<form action="#" th:action="@{'/adminPanel'}" th:method="get">
+    <button type="submit">Admin Panel</button>
 </form>
 </html>

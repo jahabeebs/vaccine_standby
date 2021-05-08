@@ -27,8 +27,13 @@ public class PatientController {
     }
 
     @GetMapping("/error")
-    public String pageNotFound(Model model) {
+    public String pageNotFound() {
         return "error";
+    }
+
+    @GetMapping("/adminPanel")
+    public String adminPanel() {
+        return "admin_panel";
     }
 
     @PostMapping("/register")

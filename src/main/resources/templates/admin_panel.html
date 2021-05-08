@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+</head>
+<h1>
+    Admin Panel
+</h1>
+<form action="#" th:action="@{'/'}" th:method="get">
+    <button type="submit">Home</button>
+</form>
+<br>
+<form action="#" th:action="@{'/topPatient'}" th:method="get">
+    <button type="submit">Top Patient</button>
+</form>
+<br>
+<form action="#" th:action="@{'/topMissed'}" th:method="get">
+    <button type="submit">Top Missed Patient</button>
+</form>
+<br>
+<form action="#" th:action="@{'/listComingPatients'}" th:method="get">
+    <button type="submit">List of Coming Patients</button>
+</form>
+</html>

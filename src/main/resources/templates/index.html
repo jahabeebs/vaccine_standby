@@ -12,10 +12,10 @@
         <input th:field="*{firstName}" type="text"/>
     </label>
     </p>
-    <p> Last Name: <input th:field="*{lastName}" type="text"/>
+    <p> Last Name: <label><input th:field="*{lastName}" type="text"/></label>
     </p>
     <p> In what category would you classify your occupation?
-        <select th:field="*{occupation}" type="radio">
+        <label><select th:field="*{occupation}">
             <option value="Accommodation and Food Services">Accommodation and Food Services</option>
             <option value="Administration, Business Support and Waste Management Services">Administration, Business
                 Support and Waste Management Services
@@ -42,27 +42,34 @@
             <option value="Utilities">Utilities</option>
             <option value="Wholesale Trade">Wholesale Trade</option>
         </select>
+        </label>
     </p>
     <p> With which race do you most closely identify?
-        <select th:field="*{race}" type="radio">
-            <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
-            <option value="Asian">Asian</option>
-            <option value="Black or African American">Black or African American</option>
-            <option value="Hispanic or Latino">Hispanic or Latino</option>
-            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
-            <option value="White">White</option>
-            <option value="White">Other</option>
-        </select>
+        <label>
+            <select th:field="*{race}">
+                <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                <option value="Asian">Asian</option>
+                <option value="Black or African American">Black or African American</option>
+                <option value="Hispanic or Latino">Hispanic or Latino</option>
+                <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander
+                </option>
+                <option value="White">White</option>
+                <option value="White">Other</option>
+            </select>
+        </label>
     </p>
     <p>
-        <label>Age:</label>
+        Age: <label>
         <input name="num" th:field="*{age}" type="number">
+    </label>
     </p>
     <p>
-        <label>Enter a phone number:</label><br><br>
-        <input id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required
-               th:field="*{phoneNumber}"
-               type="tel">
+        Enter a phone number:<br><br>
+        <label>
+            <input id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required
+                   th:field="*{phoneNumber}"
+                   type="tel">
+        </label>
     </p>
     <p>
         <label>Press the button below for us to find your nearest pharmacy:</label><br><br>
@@ -71,9 +78,16 @@
         </button>
     </p>
     <div id="distanceCalculatedText"><b>Distance Successfully Calculated</b></div>
-    <input hidden id="location-passer" name="location-passer" th:field="*{location}" type="text">
-    <p><input th:onclick="hideDistanceCalculatedText()" type="submit" value="Submit"/> <br> <input type="reset"
-                                                                                                   value="Reset"/></p>
+    <label>
+        <input hidden id="location-passer" name="location-passer" th:field="*{location}" type="text">
+    </label>
+    <p><input th:onclick="hideDistanceCalculatedText()" type="submit" value="Submit"/> <br>
+        <input type="reset" value="Reset"/>
+    </p>
+</form>
+<br>
+<form action="#" th:action="@{'/adminPanel'}" th:method="get">
+    <button type="submit">Admin Panel</button>
 </form>
 <script th:inline="javascript">
     let y = document.getElementById("location-passer");
@@ -92,8 +106,7 @@
     function assignLatAndLong(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        const location = "" + latitude + "," + longitude;
-        y.value = location;
+        y.value = "" + latitude + "," + longitude;
     }
 
     function hideDistanceCalculatedText() {
