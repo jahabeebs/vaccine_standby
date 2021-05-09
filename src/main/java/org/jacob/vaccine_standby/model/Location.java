@@ -2,7 +2,7 @@ package org.jacob.vaccine_standby.model;
 
 import javax.persistence.*;
 
-/*
+/**
 Credit for this code belongs to Robert Sedgewick and Kevin Wayne of Princeton University
 Their code is here: https://introcs.cs.princeton.edu/java/44st/Location.java.html
 I removed their constructor, added a custom constructor and persistence annotations
@@ -23,6 +23,11 @@ public class Location {
     public Location() {
     }
 
+    /**
+     * Parses location data provided by JavaScript and assigns it to a particular patient
+     *
+     * @param locationString
+     */
     public Location(String locationString) {
         String[] locationArray = locationString.split(",", 2);
         setLatitude(Double.parseDouble(locationArray[0]));

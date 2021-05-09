@@ -49,6 +49,9 @@ public class Patient {
         assignPatientPriorityScore();
     }
 
+    /**
+     * The pharmacy is hardcoded to be a particular pharmacy in Cincinnati for the purposes of the demo
+     */
     public void calculateDistanceFromPharmacy() {
         Location samplePharmacy = new Location();
         samplePharmacy.setLongitude(-84.389740);
@@ -56,6 +59,11 @@ public class Patient {
         setMilesFromPharmacy(location.distanceTo(samplePharmacy));
     }
 
+    /**
+     * Assigns a patient a priority score based on distance from a pharmacy, healthcare worker status and age.
+     * Patients who are closer to a particular pharmacy are weighted far higher than those farther away.
+     * The highest priority patient would be an elderly healthcare worker close to the pharmacy.
+     */
     public void assignPatientPriorityScore() {
         calculateDistanceFromPharmacy();
         double total = 0;
